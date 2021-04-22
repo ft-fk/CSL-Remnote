@@ -14,15 +14,11 @@ Steps:
 
 ex: 
 >    **Science and Complexity**, Weaver, [[Issued/1948]]
->    
->        [[~/Aliases]]
->        
->              Weaver, 1948
->              
+   
+>        [[~/Aliases]]       
+>              Weaver, 1948              
 >      [[People/Authors/Weaver, Warren]]
->      [[Issued/1948]], in [[Journals/American Scientist]]
->      
->      ##1-line-abstract
->      
+>      [[Issued/1948]], in [[Journals/American Scientist]]      
+>      ##1-line-abstract      
 >      ##Topics
 
