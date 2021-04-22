@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" default-locale="en-US">
+  <!-- This style was edited with the Visual CSL Editor (https://editor.citationstyles.org/visualEditor/) -->
   <info>
-    <title>Remnote Markdown v1</title>
-    <title-short>RN-MD v1</title-short>
-    <id>http://www.zotero.org/styles/remnote-markdown-v1</id>
-    <link rel="self" href="http://www.zotero.org/styles/remnote-markdown-v1"/>
+    <title>Remnote Markdown v2</title>
+    <title-short>RN-MD v2</title-short>
+    <id>http://www.zotero.org/styles/remnote-markdown-v2</id>
+    <link rel="self" href="http://www.zotero.org/styles/remnote-markdown-v2"/>
     <author>
       <name>ftfk</name>
     </author>
@@ -13,8 +14,7 @@
     </contributor>
     <category field="science"/>
     <summary>Copy-Paste formatted bibliography to Remnote(dot)io</summary>
-    <updated>2021-02-22T14:42:38+00:00</updated>
-    <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
+    <updated>2021-04-22T17:55:39+00:00</updated>
   </info>
   <locale xml:lang="en">
     <terms>
@@ -38,10 +38,6 @@
     <names variable="author" delimiter="; ">
       <name prefix="[[People/Authors/" suffix="]]" and="text" delimiter-precedes-last="always" initialize="false" initialize-with="" name-as-sort-order="all"/>
       <label form="long" prefix=", " strip-periods="true"/>
-      <substitute>
-        <names variable="editor translator"/>
-        <text variable="title"/>
-      </substitute>
     </names>
   </macro>
   <macro name="author-short">
@@ -67,15 +63,7 @@
     </group>
   </macro>
   <macro name="publisher">
-    <group delimiter=": ">
-      <choose>
-        <if type="thesis">
-          <text variable="publisher-place" prefix="[" suffix="]"/>
-        </if>
-        <else>
-          <text variable="publisher-place"/>
-        </else>
-      </choose>
+    <group>
       <text variable="publisher"/>
     </group>
   </macro>
@@ -97,27 +85,9 @@
   </macro>
   <macro name="year-date">
     <group delimiter=" ">
-      <date delimiter=" " variable="issued" prefix="[[Issued/" suffix="]]">
+      <date delimiter=" " variable="issued">
         <date-part name="year"/>
       </date>
-      <choose>
-        <if type="patent article-newspaper webpage" match="any">
-          <date variable="issued" delimiter=" ">
-            <date-part name="month" form="short" strip-periods="true"/>
-            <date-part name="day"/>
-          </date>
-        </if>
-        <else-if type="article-journal article-magazine" match="any">
-          <choose>
-            <if variable="volume issue" match="none">
-              <date variable="issued" delimiter=" ">
-                <date-part name="month" form="short" strip-periods="true"/>
-                <date-part name="day"/>
-              </date>
-            </if>
-          </choose>
-        </else-if>
-      </choose>
     </group>
   </macro>
   <macro name="edition">
@@ -153,7 +123,7 @@
     </choose>
   </macro>
   <macro name="journal">
-    <text variable="container-title" prefix="[[Journal/" suffix="]]"/>
+    <text variable="container-title"/>
   </macro>
   <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="true" disambiguate-add-givenname="true">
     <sort>
@@ -170,10 +140,23 @@
       <key macro="year-date"/>
     </sort>
     <layout>
+      <group display="block" prefix="    "/>
       <group display="block">
         <text value="**"/>
         <text macro="title" font-weight="normal"/>
         <text value="**, "/>
+        <text macro="author-short"/>
+        <text value=", "/>
+        <text value="[[Issued/"/>
+        <text macro="year-date"/>
+        <text value="]]"/>
+      </group>
+      <group display="block">
+        <text value="    "/>
+        <text value="[[~/Aliases]]"/>
+      </group>
+      <group display="block">
+        <text value="        "/>
         <text macro="author-short"/>
         <text value=", "/>
         <text macro="year-date"/>
@@ -182,79 +165,49 @@
         <text macro="author"/>
       </group>
       <group display="block" prefix="    ">
+        <text value="[[Issued/"/>
         <text macro="year-date"/>
+        <text value="]]"/>
         <choose>
-          <if type="bill book graphic legal_case legislation motion_picture report song thesis" match="any">
-            <group prefix=" " suffix="." delimiter=" ">
-              <text macro="edition"/>
-              <text macro="editor"/>
-            </group>
-            <text prefix=" " macro="publisher"/>
-            <text prefix=" " macro="collection"/>
+          <if type="book" match="any">
+            <text value=", "/>
+            <text value="[[Publisher/"/>
+            <text macro="publisher"/>
+            <text value="]]"/>
           </if>
-          <else-if type="chapter paper-conference entry-dictionary entry-encyclopedia" match="any">
-            <group prefix=" " delimiter=" ">
-              <group delimiter=" ">
-                <text term="in" text-case="capitalize-first" suffix=":"/>
-                <text macro="editor"/>
-                <text variable="container-title" suffix="."/>
-              </group>
-              <text variable="volume" prefix="Vol. " suffix="."/>
-              <text macro="edition"/>
-              <group suffix="." delimiter=". ">
-                <text macro="publisher"/>
-                <text prefix=" " macro="collection"/>
-                <text macro="pages"/>
-              </group>
-            </group>
+          <else-if type="chapter" match="any">
+            <text value=", chpt. from "/>
+            <text value="[[Books/"/>
+            <text macro="journal"/>
+            <text value="]]"/>
           </else-if>
-          <else-if type="review review-book" match="any">
-            <text macro="editor" prefix=" " suffix="."/>
-            <group prefix=" ">
-              <text macro="review" suffix="."/>
-              <group prefix=" ">
-                <text variable="volume"/>
-                <text variable="issue" prefix="(" suffix=")"/>
-              </group>
-              <text variable="page" prefix=":"/>
-            </group>
+          <else-if type="article-journal" match="any">
+            <text value="in" prefix=", " suffix=" "/>
+            <text value="[[Journals/"/>
+            <text variable="container-title" strip-periods="true"/>
+            <text value="]]"/>
           </else-if>
-          <else>
-            <text macro="editor" suffix="." prefix=" "/>
-            <group prefix=" ">
-              <text value="in "/>
-              <text variable="container-title" strip-periods="true" prefix="[[Journals/" suffix="]]"/>
-            </group>
-          </else>
+          <else/>
         </choose>
       </group>
-      <group display="block" delimiter=" " prefix="     ">
-        <text value="..."/>
+      <group display="block" delimiter=" " prefix="    ">
         <text value="##1-line-abstract"/>
       </group>
       <group display="block" delimiter=" " prefix="    ">
-        <text value="..."/>
         <text value="##Topics"/>
       </group>
       <group>
         <choose>
           <if type="book" match="any">
+            <text value="    "/>
             <text variable="ISBN" prefix="ISBN: "/>
           </if>
           <else>
+            <text value="    "/>
             <text variable="DOI" prefix="[doi:" suffix="]"/>
             <text variable="DOI" prefix="(https://doi.org/" suffix=")"/>
           </else>
         </choose>
-      </group>
-      <group display="block" prefix="    ">
-        <text variable="keyword" suffix="##Authors-keywords"/>
-      </group>
-      <group display="block" prefix="    ">
-        <text variable="note" suffix="##imported-noted"/>
-      </group>
-      <group display="block" prefix="    ">
-        <text variable="status" suffix="##imported-status"/>
       </group>
     </layout>
   </bibliography>
