@@ -1,7 +1,6 @@
-# CSL-Remnote v2
+# CSL-Remnote v2.1
 CSL (citation language style) to cite document from Mendeley/Zotero in Remnote-Md
-
-for : remnote.io
+for : remnote.com
 
 **Offer a structure for the import of PDF (via library manager) in Remnote**. 
 Authors, Journals, year of Issue are created as child rem of document with according name.
