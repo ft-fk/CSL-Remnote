@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" default-locale="en-US">
+  <!-- This style was edited with the Visual CSL Editor (https://editor.citationstyles.org/visualEditor/) -->
+  <info>
+    <title>Remnote Markdown v2</title>
+    <title-short>RN-MD v2</title-short>
+    <id>http://www.zotero.org/styles/remnote-markdown-v2</id>
+    <link rel="self" href="http://www.zotero.org/styles/remnote-markdown-v2"/>
+    <author>
+      <name>ftfk</name>
+    </author>
+    <contributor>
+      <name>ftfk</name>
+    </contributor>
+    <category field="science"/>
+    <summary>Copy-Paste formatted bibliography to Remnote(dot)io</summary>
+    <updated>2021-11-08T17:33:14+00:00</updated>
+  </info>
+  <locale xml:lang="en">
+    <terms>
+      <term name="editortranslator" form="long">
+        <single>editor and translator</single>
+        <multiple>editors and translators</multiple>
+      </term>
+      <term name="collection-editor" form="long">
+        <single>editor</single>
+        <multiple>editors</multiple>
+      </term>
+    </terms>
+  </locale>
+  <macro name="editor">
+    <names variable="editor translator" delimiter="; " suffix=".">
+      <name delimiter-precedes-last="always" initialize-with="" name-as-sort-order="all" sort-separator=" "/>
+      <label prefix=", "/>
+    </names>
+  </macro>
+  <macro name="author">
+    <names variable="author" delimiter="; ">
+      <name prefix="[[People/Authors/" suffix="]]" and="text" delimiter-precedes-last="always" initialize="false" initialize-with="" name-as-sort-order="all"/>
+      <label form="long" prefix=", " strip-periods="true"/>
+    </names>
+  </macro>
+  <macro name="author-short">
+    <names variable="author">
+      <name form="short" and="symbol" et-al-min="2" et-al-use-first="1" initialize-with="."/>
+      <substitute>
+        <names variable="editor"/>
+        <names variable="translator"/>
+        <text variable="title-short"/>
+      </substitute>
+    </names>
+  </macro>
+  <macro name="review">
+    <group delimiter=". ">
+      <text variable="reviewed-title"/>
+      <text variable="container-title"/>
+    </group>
+  </macro>
+  <macro name="access"/>
+  <macro name="title">
+    <group delimiter=" ">
+      <text variable="title"/>
+    </group>
+  </macro>
+  <macro name="publisher">
+    <group>
+      <text variable="publisher"/>
+    </group>
+  </macro>
+  <macro name="pages">
+    <group delimiter="; ">
+      <group>
+        <label variable="page" form="short" suffix=" " plural="never"/>
+        <text variable="page"/>
+      </group>
+      <group>
+        <text variable="number-of-pages"/>
+        <choose>
+          <if is-numeric="number-of-pages">
+            <label variable="number-of-pages" form="short" prefix=" " plural="never"/>
+          </if>
+        </choose>
+      </group>
+    </group>
+  </macro>
+  <macro name="year-date">
+    <group delimiter=" ">
+      <date delimiter=" " variable="issued">
+        <date-part name="year"/>
+      </date>
+    </group>
+  </macro>
+  <macro name="edition">
+    <choose>
+      <if is-numeric="edition">
+        <group delimiter=" ">
+          <number variable="edition" form="ordinal"/>
+          <text term="edition" form="short"/>
+        </group>
+      </if>
+      <else>
+        <text variable="edition" suffix="."/>
+      </else>
+    </choose>
+  </macro>
+  <macro name="collection">
+    <choose>
+      <if type="report">
+        <group prefix=" " suffix="." delimiter=" ">
+          <text variable="collection-title"/>
+          <text variable="number" prefix=" Report No.: "/>
+        </group>
+      </if>
+      <else>
+        <group prefix=" (" suffix=")." delimiter=" ">
+          <names variable="collection-editor" suffix=". ">
+            <name delimiter-precedes-last="always" initialize-with="" name-as-sort-order="all" sort-separator=" "/>
+            <label prefix=", "/>
+          </names>
+          <text variable="collection-title"/>
+        </group>
+      </else>
+    </choose>
+  </macro>
+  <macro name="journal">
+    <text variable="container-title"/>
+  </macro>
+  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="true" disambiguate-add-givenname="true">
+    <sort>
+      <key macro="year-date"/>
+      <key macro="author-short"/>
+    </sort>
+    <layout delimiter="; ">
+      <text macro="title"/>
+    </layout>
+  </citation>
+  <bibliography hanging-indent="false" et-al-min="11" et-al-use-first="10">
+    <sort>
+      <key macro="author"/>
+      <key macro="year-date"/>
+    </sort>
+    <layout>
+      <group display="block" prefix="    "/>
+      <group display="block">
+        <text value="**"/>
+        <text macro="title" font-weight="normal"/>
+        <text value="**, "/>
+        <text macro="author-short"/>
+        <text value=", "/>
+        <text value="[[Issued/"/>
+        <text macro="year-date"/>
+        <text value="]]"/>
+      </group>
+      <group display="block">
+        <text value="    "/>
+        <text value="[[~/Aliases]]"/>
+      </group>
+      <group display="block">
+        <text value="        "/>
+        <text macro="author-short"/>
+        <text value=", "/>
+        <text macro="year-date"/>
+      </group>
+      <group display="block" prefix="    ">
+        <text macro="author"/>
+      </group>
+      <group display="block" prefix="    ">
+        <text value="[[Issued/"/>
+        <text macro="year-date"/>
+        <text value="]]"/>
+        <choose>
+          <if type="book" match="any">
+            <text value=", "/>
+            <text value="[[Publisher/"/>
+            <text macro="publisher"/>
+            <text value="]]"/>
+          </if>
+          <else-if type="chapter" match="any">
+            <text value=", chpt. from "/>
+            <text value="[[Books/"/>
+            <text macro="journal"/>
+            <text value="]]"/>
+          </else-if>
+          <else-if type="article-journal" match="any">
+            <text value="in" prefix=", " suffix=" "/>
+            <text value="[[Journals/"/>
+            <text variable="container-title" strip-periods="true"/>
+            <text value="]]"/>
+          </else-if>
+          <else/>
+        </choose>
+      </group>
+      <group display="block" delimiter=" " prefix="    ">
+        <text value="##1-line-abstract"/>
+      </group>
+      <group display="block" delimiter=" " prefix="    ">
+        <text value="##Topics"/>
+      </group>
+      <group>
+        <choose>
+          <if type="book" match="any">
+            <text value="    "/>
+            <text variable="ISBN" prefix="ISBN: "/>
+          </if>
+          <else>
+            <text value="    "/>
+            <text variable="DOI" prefix="[doi:" suffix="]"/>
+            <text variable="DOI" prefix="(https://doi.org/" suffix=")"/>
+          </else>
+        </choose>
+      </group>
+    </layout>
+  </bibliography>
+</style>
