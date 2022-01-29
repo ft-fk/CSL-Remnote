@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" default-locale="en-US">
   <!-- This style was edited with the Visual CSL Editor (https://editor.citationstyles.org/visualEditor/) -->
   <info>
-    <title>Remnote Markdown v2</title>
-    <title-short>RN-MD v2</title-short>
+    <title>Remnote Markdown v2.1</title>
+    <title-short>RN-MD v2.1</title-short>
     <id>http://www.zotero.org/styles/remnote-markdown-v2</id>
     <link rel="self" href="http://www.zotero.org/styles/remnote-markdown-v2"/>
     <author>
@@ -14,7 +14,7 @@
     </contributor>
     <category field="science"/>
     <summary>Copy-Paste formatted bibliography to Remnote(dot)io</summary>
-    <updated>2021-04-22T17:55:39+00:00</updated>
+    <updated>2021-11-08T17:33:14+00:00</updated>
   </info>
   <locale xml:lang="en">
     <terms>
